@@ -45,6 +45,6 @@ class Pasajero
 
     public function __toString()
     {
-        return "{$this->getNombre()} {$this->getApellido()} {$this->getNumeroDocumento()}";
+        return "{$this->getNombre()}";
     }
 }

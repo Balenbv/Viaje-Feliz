@@ -61,4 +61,36 @@ class Viaje
     {
         $this->cantidadMaximaPasajerosInt = $newCantidadMaxima;
     }
+
+    public function setPasasejeros($newColeccion){
+        $this->ColeccionObjspasajerosInt = $newColeccion;
+    }
+
+    public function cantidadActualPasajeros(){
+        return count($this->getPasajeros());
+    }
+
+    public function modificarPasajero()
+    {
+
+    }
+
+    public function mostrarPasajeros()
+    {
+        $texto = "";
+       foreach ($this->getPasajeros() as $pasajeroIndividual) {
+         $texto .= " " .$pasajeroIndividual ."\n";
+       }
+
+       return $texto;
+    }
+
+    public function __toString()
+    { 
+    return " responsable del viaje :{$this->getResponsableV()} 
+codigo del destino: {$this->getDestino()}
+destino: {$this->getDestino()}
+cantidad Maxima de pasajeros: {$this->getCantidadMaximaPasajeros()}
+pasajeros: {$this->mostrarPasajeros()}";
+    }
 }

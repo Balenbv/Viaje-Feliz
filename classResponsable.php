@@ -12,7 +12,7 @@ class ResponsableV
         $this->numeroEmpleadoInt = $numeroEmpleadoExt;
         $this->numeroLicienciaInt = $numeroLicienciaExt;
         $this->nombreInt = $nombreExt;
-        $this->apellidoInt = $nombreExt;
+        $this->apellidoInt = $apellidoExt;
     }
 
     public function getNumeroEmpleado()
@@ -53,5 +53,10 @@ class ResponsableV
     public function setApellido($newApellido)
     {
         $this->apellidoInt = $newApellido;
+    }
+
+    public function __toString()
+    {
+        return " {$this->getNombre()}";
     }
 }
