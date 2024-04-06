@@ -4,16 +4,16 @@ include_once 'classViaje.php';
 include_once 'classPasajero.php';
 include_once 'classResponsable.php';
 
-$objPersona1 = new Pasajero('pedro', 'morales', '981723');
-$objPersona2 = new Pasajero('Ana', 'García', '12345678');
-$objPersona3 = new Pasajero('Juan', 'Pérez', '87654321');
-$objPersona4 = new Pasajero('María', 'López', '23456789');
-$objPersona5 = new Pasajero('Luis', 'Fernández', '45678901');
-$objPersona6 = new Pasajero('Laura', 'Gómez', '67890123');
-$objPersona7 = new Pasajero('Carlos', 'Martínez', '89012345');
-$objPersona8 = new Pasajero('Marta', 'Díaz', '10123456');
-$objPersona9 = new Pasajero('Roberto', 'Rodríguez', '12345678');
-$objPersona10 = new Pasajero('Sandra', 'Sánchez', '34567890');
+$objPersona1 = new Pasajero('pedro', 'morales', '981723', 981263);
+$objPersona2 = new Pasajero('Ana', 'García', '12345678',289374);
+$objPersona3 = new Pasajero('Juan', 'Pérez', '87654321',9817364);
+$objPersona4 = new Pasajero('María', 'López', '23456789',91864);
+$objPersona5 = new Pasajero('Luis', 'Fernández', '45678901',92874);
+$objPersona6 = new Pasajero('Laura', 'Gómez', '67890123',9186);
+$objPersona7 = new Pasajero('Carlos', 'Martínez', '89012345',1928367);
+$objPersona8 = new Pasajero('Marta', 'Díaz', '10123456',1923678);
+$objPersona9 = new Pasajero('Roberto', 'Rodríguez', '12345678',9286743);
+$objPersona10 = new Pasajero('Sandra', 'Sánchez', '34567890',182736);
 
 $coleccionPasajeros =[$objPersona1,
 $objPersona2,
@@ -30,5 +30,9 @@ $objResponsable = new ResponsableV('1312', '88','valentin','bustos villar');
 
 $ObjViaje = new Viaje($objResponsable, '787', 'chubut', 150, $coleccionPasajeros);
 
-echo $ObjViaje;
+if ($ObjViaje->encontrarPasajero(12345678)){
+    echo "\nse encontro el pasajero";
+} else {
+    echo "\nel pasajero es nuevo";
+}
 

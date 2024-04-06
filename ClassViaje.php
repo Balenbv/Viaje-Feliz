@@ -70,9 +70,20 @@ class Viaje
         return count($this->getPasajeros());
     }
 
-    public function modificarPasajero()
-    {
+    public function encontrarPasajero($dniParaRastrear){
+        $existePasajero = false;
+        for($i=0;$i < $this->cantidadActualPasajeros() && $existePasajero != true;$i++){
+            if($this->getPasajeros()[$i]->getNumeroDocumento() == $dniParaRastrear){
+                $existePasajero = true;
+            }
+        }
 
+        return $existePasajero;
+    }
+
+    public function modificarPasajero($numeroPasajero, $newNombre, $newApellido, $newNuevoTelefono)
+    {
+        $this->getPasajeros()[$numeroPasajero];
     }
 
     public function mostrarPasajeros()
