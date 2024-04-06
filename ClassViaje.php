@@ -62,43 +62,54 @@ class Viaje
         $this->cantidadMaximaPasajerosInt = $newCantidadMaxima;
     }
 
-    public function setPasasejeros($newColeccion){
+    public function setPasasejeros($newColeccion)
+    {
         $this->ColeccionObjspasajerosInt = $newColeccion;
     }
 
-    public function cantidadActualPasajeros(){
+    public function cantidadActualPasajeros()
+    {
         return count($this->getPasajeros());
     }
 
-    public function encontrarPasajero($dniParaRastrear){
-        $existePasajero = false;
-        for($i=0;$i < $this->cantidadActualPasajeros() && $existePasajero != true;$i++){
-            if($this->getPasajeros()[$i]->getNumeroDocumento() == $dniParaRastrear){
-                $existePasajero = true;
+    public function encontrarPosicionPasajero($dniParaRastrear)
+    {
+        $existePasajero = 0;
+        $seEncontro = false;
+        for ($i = 0; $i < $this->cantidadActualPasajeros() && $seEncontro != true; $i++) {
+            if ($this->getPasajeros()[$i]->getNumeroDocumento() == $dniParaRastrear) {
+                $existePasajero = $i;
+                $seEncontro = true;
             }
         }
-
         return $existePasajero;
     }
 
-    public function modificarPasajero($numeroPasajero, $newNombre, $newApellido, $newNuevoTelefono)
+    public function modificarPasajero($numeroDniPasajero, $newNombre, $newApellido, $newNuevoTelefono)
     {
-        $this->getPasajeros()[$numeroPasajero];
+        if ($this->encontrarPosicionPasajero($numeroDniPasajero) != 0) {
+            $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNombre($newNombre);
+            $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setApellido($newApellido);
+            $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNumeroTelefono($newNuevoTelefono);
+        } else {
+            echo 'no hay pasajero con ese dni';
+        }
+        return $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)];
     }
 
     public function mostrarPasajeros()
     {
         $texto = "";
-       foreach ($this->getPasajeros() as $pasajeroIndividual) {
-         $texto .= " " .$pasajeroIndividual ."\n";
-       }
+        foreach ($this->getPasajeros() as $pasajeroIndividual) {
+            $texto .= " " . $pasajeroIndividual . "\n";
+        }
 
-       return $texto;
+        return $texto;
     }
 
     public function __toString()
-    { 
-    return " responsable del viaje :{$this->getResponsableV()} 
+    {
+        return " responsable del viaje :{$this->getResponsableV()} 
 codigo del destino: {$this->getDestino()}
 destino: {$this->getDestino()}
 cantidad Maxima de pasajeros: {$this->getCantidadMaximaPasajeros()}
