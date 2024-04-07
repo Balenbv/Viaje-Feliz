@@ -87,14 +87,30 @@ class Viaje
 
     public function modificarPasajero($numeroDniPasajero, $newNombre, $newApellido, $newNuevoTelefono)
     {
+        $pasajero='no hay pasajero con ese dni';
+
         if ($this->encontrarPosicionPasajero($numeroDniPasajero) != 0) {
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNombre($newNombre);
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setApellido($newApellido);
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNumeroTelefono($newNuevoTelefono);
-        } else {
-            echo 'no hay pasajero con ese dni';
-        }
-        return $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)];
+
+            $pasajero = $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)];
+        } 
+        return $pasajero;
+    }
+
+    public function modificarResponsable($numeroLicencia, $numEmpleado, $nombre, $apellido)
+    {
+        $responsable = 'ya hay responsable con ese numero de licencia';
+        if ($this->getResponsableV()->getNumeroLicencia() != $numeroLicencia){
+            $this->getResponsableV()->setNombre($nombre);
+            $this->getResponsableV()->setApellido($apellido);
+            $this->getResponsableV()->setNumeroEmpleado($numEmpleado);
+            $this->getResponsableV()->setNumeroLicencia($numeroLicencia);
+            $responsable = $this->getResponsableV();
+        } 
+
+        return $responsable;
     }
 
     public function mostrarPasajeros()
