@@ -31,3 +31,29 @@ $objResponsable = new ResponsableV('1312', '88','valentin','bustos villar');
 $ObjViaje = new Viaje($objResponsable, '787', 'chubut', 150, $coleccionPasajeros);
 
 echo $ObjViaje->modificarPasajero(89012345,'juan','morales',119736);
+
+do{
+    echo "ingrese una opcion:\n
+        1) ver/modificar datos de un viaje precargado\n
+        2) crear desde 0 un viaje\n
+        3) salir\n";
+    $opcion = trim(fgets(STDIN));    
+    switch ($opcion){
+
+        case 1: do {
+            echo "1) Modificar un pasajero en especifico\n
+                  2) agregar un pasajero nuevo\n
+                  3) modificar el responsable del viaje\n
+                  4) agregar un nuevo responsable\n
+                  5) modificar el vuelo\n
+                  6) volver al menu principal";
+                  $opcionModificarCrear = trim(fgets(STDIN));
+                  switch($opcionModificarCrear){
+                    case 1: echo "ingrese los siguientes datos en orden: dni, su nuevo nombre, nuevo apellido, nuevo numero de telefono\n"
+                    $ObjViaje- ; 
+                    break;
+                  }
+        } while($opcionModificarCrear != 6)  ; break;
+
+    }
+} while ($opcion != 4);
