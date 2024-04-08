@@ -166,7 +166,7 @@ do {
             if ($objViajeCrear != [0,0,0,0,[]]){
                 $ObjViajePredefinido = $objViajeCrear;
             }
-            echo $objViajeCrear;
+            echo $ObjViajePredefinido;
             break;
     }
 } while ($opcion != 4);
