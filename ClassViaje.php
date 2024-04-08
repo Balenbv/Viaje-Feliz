@@ -74,7 +74,7 @@ class Viaje
 
     public function encontrarPosicionPasajero($dniParaRastrear)
     {
-        $existePasajero = 0;
+        $existePasajero = -1;
         $seEncontro = false;
         for ($i = 0; $i < $this->cantidadActualPasajeros() && $seEncontro != true; $i++) {
             if ($this->getPasajeros()[$i]->getNumeroDocumento() == $dniParaRastrear) {
@@ -87,37 +87,37 @@ class Viaje
 
     public function modificarPasajero($numeroDniPasajero, $newNombre, $newApellido, $newNuevoTelefono)
     {
-        $pasajero='no hay pasajero con ese dni';
+        $pasajero = 'no hay pasajero con ese dni';
 
-        if ($this->encontrarPosicionPasajero($numeroDniPasajero) != 0) {
+        if ($this->encontrarPosicionPasajero($numeroDniPasajero) != -1) {
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNombre($newNombre);
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setApellido($newApellido);
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNumeroTelefono($newNuevoTelefono);
 
             $pasajero = $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)];
-        } 
+        }
         return $pasajero;
     }
 
-    public function modificarResponsable($numeroLicencia, $numEmpleado, $nombre, $apellido)
+    public function cambiarResponsable($numeroLicencia, $numEmpleado, $nombre, $apellido)
     {
-        $responsable = 'ya hay responsable con ese numero de licencia';
-        if ($this->getResponsableV()->getNumeroLicencia() != $numeroLicencia){
+        $responsable = 'no hay responsable con ese numero de licencia';
+        if ($this->getResponsableV()->getNumeroLicencia() == $numeroLicencia) {
             $this->getResponsableV()->setNombre($nombre);
             $this->getResponsableV()->setApellido($apellido);
             $this->getResponsableV()->setNumeroEmpleado($numEmpleado);
-            $this->getResponsableV()->setNumeroLicencia($numeroLicencia);
             $responsable = $this->getResponsableV();
-        } 
-
+        }
         return $responsable;
     }
 
     public function mostrarPasajeros()
     {
         $texto = "";
+        $i=1;
         foreach ($this->getPasajeros() as $pasajeroIndividual) {
-            $texto .= " " . $pasajeroIndividual . "\n";
+            $texto .= "pasajero ". $i .": ". $pasajeroIndividual . "\n";
+            $i++;
         }
 
         return $texto;
@@ -125,10 +125,14 @@ class Viaje
 
     public function __toString()
     {
-        return " responsable del viaje :{$this->getResponsableV()} 
-codigo del destino: {$this->getDestino()}
+        return "
+{$this->getResponsableV()}
+********************************
+Datos del viaje:
+codigo del destino: {$this->getCodigoViaje()}
 destino: {$this->getDestino()}
 cantidad Maxima de pasajeros: {$this->getCantidadMaximaPasajeros()}
-pasajeros: {$this->mostrarPasajeros()}";
+********************************
+{$this->mostrarPasajeros()}";
     }
 }

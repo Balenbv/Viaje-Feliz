@@ -30,7 +30,8 @@ class Pasajero
         return $this->numeroDocInt;
     }
 
-    public function getNumeroTelefono(){
+    public function getNumeroTelefono()
+    {
         return $this->numTelefonoInt;
     }
 
@@ -49,12 +50,18 @@ class Pasajero
         $this->numeroDocInt = $newNumeroDocumento;
     }
 
-    public function setNumeroTelefono($newNumeroTelefono){
+    public function setNumeroTelefono($newNumeroTelefono)
+    {
         $this->numTelefonoInt = $newNumeroTelefono;
     }
 
     public function __toString()
     {
-        return "{$this->getNombre()} {$this->getApellido()} {$this->getNumeroTelefono()}";
+        return " 
+Nombre: {$this->getNombre()}
+Apellido: {$this->getApellido()}
+Numero de Telefono: {$this->getNumeroTelefono()}
+Numero DNI: {$this->getNumeroDocumento()}
+------------------------";
     }
 }

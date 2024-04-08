@@ -57,7 +57,10 @@ class ResponsableV
 
     public function __toString()
     {
-        return "{$this->getNombre()} {$this->getApellido()} 
+        return "
+Datos del resposable: 
+Nombre/s: {$this->getNombre()}
+Apellido/s: {$this->getApellido()} 
 Numero de empleado: {$this->getNumeroEmpleado()}
 Numero de licencia: {$this->getNumeroLicencia()}";
     }
