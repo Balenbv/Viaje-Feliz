@@ -36,13 +36,63 @@ $elViajePersonalizadoEstaCreado = false;
 
 do {
     echo "\ningrese una opcion:\n
-    1) modificar datos de un viaje precargado\n
-    2) crear desde 0 un viaje\n
+    1) crear desde 0 un viaje\n
+    2) modificar datos de un viaje precargado\n
     3) ver los datos actuales del viaje\n
     4) salir\n\n ";
     $opcion = trim(fgets(STDIN));
     switch ($opcion) {
         case 1:
+            echo "\nvamos a crear un viaje desde 0, ingrese el maximo de pasajeros para este vuelo:\n";
+            $coleccionPasajeros = [];
+            $cantidadMaximaPersonas = trim(fgets(STDIN));
+            echo "\nAhora cuantos pasajeros quiere crear:\n";
+            $cantidadPasajeros = trim(fgets(STDIN));
+
+            do {
+                echo "ingrese los datos del pasajero que agregar al vuelo";
+                echo "\nNombre: ";
+                $nombre = trim(fgets(STDIN));
+                echo "Apellido: ";
+                $apellido = trim(fgets(STDIN));
+                echo "numero de telefono: ";
+                $numTelefono = trim(fgets(STDIN));
+                echo "numero de dni: ";
+                $dni = trim(fgets(STDIN));
+                if (count($coleccionPasajeros) == 0) {
+                    array_push($coleccionPasajeros, new Pasajero($nombre, $apellido, $dni, $numTelefono));
+                    $objViajeCrear = new viaje(0, 0, 0, 0, $coleccionPasajeros);
+                    echo "se agrego al pasajero exitosamente :)\n";
+                } else if ($objViajeCrear->encontrarPosicionPasajero($dni) == -1) {
+                    array_push($coleccionPasajeros, new Pasajero($nombre, $apellido, $dni, $numTelefono));
+                    $objViajeCrear = new viaje(0, 0, 0, 0, $coleccionPasajeros);
+                    echo "se agrego al pasajero exitosamente :)\n";
+                } else {
+                    echo "\n/////////////////////////////////////\nya existe un pasajero con ese DNI\n/////////////////////////////////////\n";
+                }
+            } while (count($coleccionPasajeros) != $cantidadPasajeros);
+            echo "\nAhora vamos a definir el responsable del viaje:\n";
+            echo "\nIngrese su numero de licencia: ";
+            $numeroLicencia = trim(fgets(STDIN));
+            echo "Su nuevo nombre: ";
+            $nombre = trim(fgets(STDIN));
+            echo "Su nuevo apellido: ";
+            $apellido = trim(fgets(STDIN));
+            echo "Su nuevo numero de empleado: ";
+            $numeroEmpleado = trim(fgets(STDIN));
+            $objResponsableCreado = new ResponsableV($numeroEmpleado, $numeroLicencia, $nombre, $apellido);
+
+            echo "\nPor ultimo vamos a definir el viaje:\n";
+            echo "\nIngrese el codigo del vuelo: ";
+            $codigoViaje = trim(fgets(STDIN));
+            echo "\nIngrese el destino del viaje: ";
+            $destino = trim(fgets(STDIN));
+            $objViajeCrear = new Viaje($objResponsableCreado, $codigoViaje, $destino, $cantidadMaximaPersonas, $coleccionPasajeros);
+            echo "\n//////////////////////////////////////\nSu viaje fue creado exitosamente :)\n//////////////////////////////////////";
+            $elViajePersonalizadoEstaCreado = true;
+            break;
+        case 2:
+
             do {
                 echo "\n**************************************";
                 echo "\n1) Modificar un pasajero en especifico\n";
@@ -173,55 +223,9 @@ do {
 
             break;
 
-        case 2:
-            echo "\nvamos a crear un viaje desde 0, ingrese el maximo de pasajeros para este vuelo:\n";
-            $coleccionPasajeros = [];
-            $cantidadMaximaPersonas = trim(fgets(STDIN));
-            echo "\nAhora cuantos pasajeros quiere crear:\n";
-            $cantidadPasajeros = trim(fgets(STDIN));
 
-            do {
-                echo "ingrese los datos del pasajero que agregar al vuelo";
-                echo "\nNombre: ";
-                $nombre = trim(fgets(STDIN));
-                echo "Apellido: ";
-                $apellido = trim(fgets(STDIN));
-                echo "numero de telefono: ";
-                $numTelefono = trim(fgets(STDIN));
-                echo "numero de dni: ";
-                $dni = trim(fgets(STDIN));
-                if (count($coleccionPasajeros) == 0) {
-                    array_push($coleccionPasajeros, new Pasajero($nombre, $apellido, $dni, $numTelefono));
-                    $objViajeCrear = new viaje(0, 0, 0, 0, $coleccionPasajeros);
-                    echo "se agrego al pasajero exitosamente :)\n";
-                } else if ($objViajeCrear->encontrarPosicionPasajero($dni) == -1) {
-                    array_push($coleccionPasajeros, new Pasajero($nombre, $apellido, $dni, $numTelefono));
-                    $objViajeCrear = new viaje(0, 0, 0, 0, $coleccionPasajeros);
-                    echo "se agrego al pasajero exitosamente :)\n";
-                } else {
-                    echo "\n/////////////////////////////////////\nya existe un pasajero con ese DNI\n/////////////////////////////////////\n";
-                }
-            } while (count($coleccionPasajeros) != $cantidadPasajeros);
-            echo "\nAhora vamos a definir el responsable del viaje:\n";
-            echo "\nIngrese su numero de licencia: ";
-            $numeroLicencia = trim(fgets(STDIN));
-            echo "Su nuevo nombre: ";
-            $nombre = trim(fgets(STDIN));
-            echo "Su nuevo apellido: ";
-            $apellido = trim(fgets(STDIN));
-            echo "Su nuevo numero de empleado: ";
-            $numeroEmpleado = trim(fgets(STDIN));
-            $objResponsableCreado = new ResponsableV($numeroEmpleado, $numeroLicencia, $nombre, $apellido);
 
-            echo "\nPor ultimo vamos a definir el viaje:\n";
-            echo "\nIngrese el codigo del vuelo: ";
-            $codigoViaje = trim(fgets(STDIN));
-            echo "\nIngrese el destino del viaje: ";
-            $destino = trim(fgets(STDIN));
-            $objViajeCrear = new Viaje($objResponsableCreado, $codigoViaje, $destino, $cantidadMaximaPersonas, $coleccionPasajeros);
-            echo "\n//////////////////////////////////////\nSu viaje fue creado exitosamente :)\n//////////////////////////////////////";
-            $elViajePersonalizadoEstaCreado = true;
-            break;
+
         case 3:
             if ($objViajeCrear->cantidadActualPasajeros() != 0) {
                 echo $objViajeCrear;
