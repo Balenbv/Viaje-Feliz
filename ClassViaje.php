@@ -77,6 +77,7 @@ class Viaje
         $existePasajero = -1;
         $seEncontro = false;
         for ($i = 0; $i < $this->cantidadActualPasajeros() && $seEncontro != true; $i++) {
+            echo "\n".$this->getPasajeros()[$i]->getNumeroDocumento();
             if ($this->getPasajeros()[$i]->getNumeroDocumento() == $dniParaRastrear) {
                 $existePasajero = $i;
                 $seEncontro = true;

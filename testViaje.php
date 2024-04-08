@@ -28,9 +28,9 @@ $coleccionPasajeros = [
     $objPersona10
 ];
 
-$objResponsable = new ResponsableV('1312', '88', 'valentin', 'bustos villar');
+$objResponsablePredefinido = new ResponsableV('1312', '88', 'valentin', 'bustos villar');
 
-$ObjViaje = new Viaje($objResponsable, '787', 'chubut', 150, $coleccionPasajeros);
+$ObjViajePredefinido = new Viaje($objResponsablePredefinido, '787', 'chubut', 150, $coleccionPasajeros);
 
 do {
     echo "\ningrese una opcion:\n
@@ -54,14 +54,14 @@ do {
                         echo "ingrese los siguientes datos:\n";
                         echo "\nSu numero de dni para identificar al pajasero: ";
                         $dni = trim(fgets(STDIN));
-                        if ($ObjViaje->encontrarPosicionPasajero($dni) != -1) {
+                        if ($ObjViajePredefinido->encontrarPosicionPasajero($dni) != -1) {
                             echo "\nSu nuevo nombre: ";
                             $nombre = trim(fgets(STDIN));
                             echo "\nSu nuevo apellido: ";
                             $apellido = trim(fgets(STDIN));
                             echo "\nSu nuevo numero de telefono: ";
                             $numTelefono = trim(fgets(STDIN));
-                            echo "\n\nse encontro el pasajero con el dni ingresado, sus nuevos datos son :" . $ObjViaje->modificarPasajero($dni, $nombre, $apellido, $numTelefono);
+                            echo "\n\nse encontro el pasajero con el dni ingresado, sus nuevos datos son :" . $ObjViajePredefinido->modificarPasajero($dni, $nombre, $apellido, $numTelefono);
                         } else {
                             echo "/////////////////////////////////////////////////////////////////\nno existe un pasajero con ese DNI, por favor intentalo de nuevo.\n/////////////////////////////////////////////////////////////////\n";
                         }
@@ -77,8 +77,8 @@ do {
                         $numTelefono = trim(fgets(STDIN));
                         echo "\nnumero de dni: ";
                         $dni = trim(fgets(STDIN));
-                        if ($ObjViaje->cantidadActualPasajeros() + 1 < $ObjViaje->getCantidadMaximaPasajeros()) {
-                            if ($ObjViaje->encontrarPosicionPasajero($dni) == -1) {
+                        if ($ObjViajePredefinido->cantidadActualPasajeros() + 1 < $ObjViajePredefinido->getCantidadMaximaPasajeros()) {
+                            if ($ObjViajePredefinido->encontrarPosicionPasajero($dni) == -1) {
                                 $newObjPasajero = new Pasajero($nombre, $apellido, $dni, $numTelefono);
                                 array_push($coleccionPasajeros, $newObjPasajero);
                                 echo "\nse agrego al pasajero exitosamente";
@@ -100,10 +100,10 @@ do {
                         $apellido = trim(fgets(STDIN));
                         echo "Su nuevo numero de empleado: ";
                         $numeroEmpleado = trim(fgets(STDIN));
-                        if ($ObjViaje->cambiarResponsable($numeroLicencia, $numeroEmpleado, $nombre, $apellido) != 'no hay responsable con ese numero de licencia') {
+                        if ($ObjViajePredefinido->cambiarResponsable($numeroLicencia, $numeroEmpleado, $nombre, $apellido) != 'no hay responsable con ese numero de licencia') {
                             echo "//////////////////////////////////////////////\nLos nuevos datos del responsable cargaron correctamente :)\n//////////////////////////////////////////////";
                         } else {
-                            echo "//////////////////////////////////////////////\n" . $ObjViaje->cambiarResponsable($numeroLicencia, $numeroEmpleado, $nombre, $apellido) . "\n//////////////////////////////////////////////";
+                            echo "//////////////////////////////////////////////\n" . $ObjViajePredefinido->cambiarResponsable($numeroLicencia, $numeroEmpleado, $nombre, $apellido) . "\n//////////////////////////////////////////////";
                         }
                         break;
                     default:
@@ -115,6 +115,7 @@ do {
             break;
 
         case 2:
+            $objViajeCrear = new viaje(0,0,0,0,[]);
             echo "\nvamos a crear un viaje desde 0, ingrese el maximo de pasajeros para este vuelo:\n";
             $coleccionPasajeros = [];
             $cantidadMaximaPersonas = trim(fgets(STDIN));
@@ -133,9 +134,12 @@ do {
                 $dni = trim(fgets(STDIN));
                 if (count($coleccionPasajeros) == 0) {
                     array_push($coleccionPasajeros, new Pasajero($nombre, $apellido, $dni, $numTelefono));
+                    $objViajeCrear = new viaje(0,0,0,0,$coleccionPasajeros);
                     echo "se agrego al pasajero exitosamente :)\n";
-                } else if ($ObjViaje->encontrarPosicionPasajero($dni) != -1) {
+                } else if ($objViajeCrear->encontrarPosicionPasajero($dni) == -1) {
                     array_push($coleccionPasajeros, new Pasajero($nombre, $apellido, $dni, $numTelefono));
+                    $objViajeCrear = new viaje(0,0,0,0,$coleccionPasajeros);
+                    echo "se agrego al pasajero exitosamente :)\n";
                 } else {
                     echo "\n/////////////////////////////////////\nya existe un pasajero con ese DNI\n/////////////////////////////////////\n";
                 }
@@ -149,17 +153,20 @@ do {
             $apellido = trim(fgets(STDIN));
             echo "Su nuevo numero de empleado: ";
             $numeroEmpleado = trim(fgets(STDIN));
-            $objResponsable = new ResponsableV($numeroEmpleado, $numeroLicencia, $nombre, $apellido);
+            $objResponsablePredefinido = new ResponsableV($numeroEmpleado, $numeroLicencia, $nombre, $apellido);
 
             echo "\nPor ultimo vamos a definir el viaje;\n";
             echo "\nIngrese el codigo del vuelo: ";
             $codigoViaje = trim(fgets(STDIN));
-            echo "\nIngrese el destino del viaje";
+            echo "\nIngrese el destino del viaje: ";
             $destino = trim(fgets(STDIN));
-            $ObjViaje = new Viaje($objResponsable, $codigoViaje, $destino, $cantidadMaximaPersonas, $coleccionPasajeros);
+            $objViajeCrear = new Viaje($objResponsablePredefinido, $codigoViaje, $destino, $cantidadMaximaPersonas, $coleccionPasajeros);
             break;
         case 3:
-            echo $ObjViaje;
+            if ($objViajeCrear != [0,0,0,0,[]]){
+                $ObjViajePredefinido = $objViajeCrear;
+            }
+            echo $objViajeCrear;
             break;
     }
 } while ($opcion != 4);
