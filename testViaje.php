@@ -101,6 +101,8 @@ do {
                                 if ($ObjViajeCrear->encontrarPosicionPasajero($dni) == -1) {
                                     $newObjPasajero = new Pasajero($nombre, $apellido, $dni, $numTelefono);
                                     array_push($coleccionPasajeros, $newObjPasajero);
+                                    $ObjViajePredefinido = new Viaje($objResponsableCreado, '787', 'chubut', 150, $coleccionPasajeros);
+                                    
                                     echo "\nse agrego al pasajero exitosamente";
                                 } else {
                                     echo "\n/////////////////////////////////////\nya existe un pasajero con ese DNI\n/////////////////////////////////////";
@@ -122,6 +124,7 @@ do {
                                 if ($ObjViajePredefinido->encontrarPosicionPasajero($dni) == -1) {
                                     $newObjPasajero = new Pasajero($nombre, $apellido, $dni, $numTelefono);
                                     array_push($coleccionPasajeros, $newObjPasajero);
+                                    $ObjViajePredefinido = new Viaje($objResponsableCreado, '787', 'chubut', 150, $coleccionPasajeros);
                                     echo "\nse agrego al pasajero exitosamente";
                                 } else {
                                     echo "\n/////////////////////////////////////\nya existe un pasajero con ese DNI\n/////////////////////////////////////";
