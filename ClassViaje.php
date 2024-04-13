@@ -87,16 +87,11 @@ class Viaje
 
     public function modificarPasajero($numeroDniPasajero, $newNombre, $newApellido, $newNuevoTelefono)
     {
-        $pasajero = 'no hay pasajero con ese dni';
-
         if ($this->encontrarPosicionPasajero($numeroDniPasajero) != -1) {
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNombre($newNombre);
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setApellido($newApellido);
             $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNumeroTelefono($newNuevoTelefono);
-
-            $pasajero = $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)];
         }
-        return $pasajero;
     }
 
     public function cambiarResponsable($numeroLicencia, $numEmpleado, $nombre, $apellido)
