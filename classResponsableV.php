@@ -7,7 +7,7 @@ class ResponsableV
     private $nombreInt;
     private $apellidoInt;
 
-    public function __construct($numeroEmpleadoExt, $numeroLicienciaExt, $nombreExt, $apellidoExt)
+    public function __construct($numeroLicienciaExt, $numeroEmpleadoExt, $nombreExt, $apellidoExt)
     {
         $this->numeroEmpleadoInt = $numeroEmpleadoExt;
         $this->numeroLicienciaInt = $numeroLicienciaExt;
@@ -62,6 +62,6 @@ Datos del resposable:
 Nombre/s: {$this->getNombre()}
 Apellido/s: {$this->getApellido()} 
 Numero de empleado: {$this->getNumeroEmpleado()}
-Numero de licencia: {$this->getNumeroLicencia()}";
+Numero de licencia: {$this->getNumeroLicencia()}\n";
     }
 }

@@ -74,15 +74,28 @@ class Viaje
 
     public function encontrarPosicionPasajero($dniParaRastrear)
     {
+        $i = 0;
         $existePasajero = -1;
         $seEncontro = false;
-        for ($i = 0; $i < $this->cantidadActualPasajeros() && $seEncontro != true; $i++) {
+        while ($seEncontro != true && $i < $this->cantidadActualPasajeros()) {
             if ($this->getPasajeros()[$i]->getNumeroDocumento() == $dniParaRastrear) {
-                $existePasajero = $i;
                 $seEncontro = true;
+                $existePasajero = $i;
+            } else {
+                $i++;
             }
         }
         return $existePasajero;
+    }
+
+    public function crearPasajero($nombre, $apellido, $dni, $numeroTelefono)
+    {
+        if ($this->encontrarPosicionPasajero($dni) == -1) {
+            $objpersonaAux = new Pasajero($nombre, $apellido, $dni, $numeroTelefono);
+            $arrayPasajerosAux = $this->getPasajeros();
+            array_push($arrayPasajerosAux, $objpersonaAux);
+            $this->setPasasejeros($arrayPasajerosAux);
+        }
     }
 
     public function modificarPasajero($numeroDniPasajero, $newNombre, $newApellido, $newNuevoTelefono)
@@ -96,22 +109,22 @@ class Viaje
 
     public function cambiarResponsable($numeroLicencia, $numEmpleado, $nombre, $apellido)
     {
-        $responsable = 'no hay responsable con ese numero de licencia';
+        echo $this->getResponsableV();
         if ($this->getResponsableV()->getNumeroLicencia() == $numeroLicencia) {
             $this->getResponsableV()->setNombre($nombre);
             $this->getResponsableV()->setApellido($apellido);
             $this->getResponsableV()->setNumeroEmpleado($numEmpleado);
-            $responsable = $this->getResponsableV();
         }
-        return $responsable;
+        echo $this->getResponsableV();
+        return ($this->getResponsableV()->getNumeroLicencia() == $numeroLicencia);
     }
 
     public function mostrarPasajeros()
     {
         $texto = "";
-        $i=1;
+        $i = 1;
         foreach ($this->getPasajeros() as $pasajeroIndividual) {
-            $texto .= "pasajero ". $i .": ". $pasajeroIndividual . "\n";
+            $texto .= "pasajero " . $i . ": " . $pasajeroIndividual . "\n";
             $i++;
         }
 
