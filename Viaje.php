@@ -78,7 +78,7 @@ class Viaje
         $existePasajero = -1;
         $seEncontro = false;
         while ($seEncontro != true && $i < $this->cantidadActualPasajeros()) {
-            if ($this->getPasajeros()[$i] == $dniParaRastrear) {
+            if ($this->getPasajeros()[$i]->getNumeroDocumento() == $dniParaRastrear) {
                 $seEncontro = true;
                 $existePasajero = $i;
             } else {
@@ -88,22 +88,36 @@ class Viaje
         return $existePasajero;
     }
 
-    public function crearPasajero($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket)
+    public function crearPasajero($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket, $numViajeFrecuente, $numMillas, $requiereRuedas, $requiereAsistenciaEspecial, $requiereComidaEspecial)
     {
         if ($this->encontrarPosicionPasajero($dni) == -1) {
-            $objpersonaAux = new Pasajero($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket);
-            $arrayPasajerosAux = $this->getPasajeros();
-            array_push($arrayPasajerosAux, $objpersonaAux);
-            $this->setPasasejeros($arrayPasajerosAux);
+            if ($numMillas != null) {
+                $objpersonaAux = new PasajeroVIP($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket, $numViajeFrecuente, $numMillas);
+                $arrayPasajerosAux = $this->getPasajeros();
+                array_push($arrayPasajerosAux, $objpersonaAux);
+                $this->setPasasejeros($arrayPasajerosAux);
+            } else if ($requiereRuedas != null) {
+                $objpersonaAux = new PasajeroEspecial($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket, $requiereRuedas, $requiereAsistenciaEspecial, $requiereComidaEspecial);
+                $arrayPasajerosAux = $this->getPasajeros();
+                array_push($arrayPasajerosAux, $objpersonaAux);
+                $this->setPasasejeros($arrayPasajerosAux);
+            } else {
+                $objpersonaAux = new Pasajero($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket);
+                $arrayPasajerosAux = $this->getPasajeros();
+                array_push($arrayPasajerosAux, $objpersonaAux);
+                $this->setPasasejeros($arrayPasajerosAux);
+            }
         }
+        return ($this->encontrarPosicionPasajero($dni) != -1);
     }
 
     public function modificarPasajero($numeroDniPasajero, $newNombre, $newApellido, $newNuevoTelefono)
     {
         if ($this->encontrarPosicionPasajero($numeroDniPasajero) != -1) {
-            $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNombre($newNombre);
-            $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setApellido($newApellido);
-            $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)]->setNumeroTelefono($newNuevoTelefono);
+            $pasajeroParaModificar = $this->getPasajeros()[$this->encontrarPosicionPasajero($numeroDniPasajero)];
+            $pasajeroParaModificar->setNombre($newNombre);
+            $pasajeroParaModificar->setApellido($newApellido);
+            $pasajeroParaModificar->setNumeroTelefono($newNuevoTelefono);
         }
     }
 
@@ -124,7 +138,13 @@ class Viaje
         $texto = "";
         $i = 1;
         foreach ($this->getPasajeros() as $pasajeroIndividual) {
-            $texto .= "pasajero " . $i . ": " . $pasajeroIndividual . "\n";
+            if ($pasajeroIndividual instanceof PasajeroVIP) {
+                $texto .= "pasajero " . $i . ":\nTipo: Vip" . $pasajeroIndividual . "\n";
+            } else if ($pasajeroIndividual instanceof PasajeroEspecial) {
+                $texto .= "pasajero " . $i . ":\nTipo: Especial" . $pasajeroIndividual . "\n";
+            } else {
+                $texto .= "pasajero " . $i . ":\nTipo: Comun" . $pasajeroIndividual."----------------\n";
+            }
             $i++;
         }
 

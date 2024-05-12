@@ -1,6 +1,6 @@
 <?php
 
-class pasajeroEspecial extends Pasajero{
+class PasajeroEspecial extends Pasajero{
     private $requiereRuedas;
     private $requiereAsistencia;
     private $requiereComidaEspecial;
@@ -58,7 +58,7 @@ class pasajeroEspecial extends Pasajero{
         return parent::__toString() .
         "Requiere ruedas: {$this->getRequiereRuedas()}\n".
         "Requiere asistencia: {$this->getRequiereAsistencia()}\n".
-        "Requiere comida especial: {$this->getRequiereComidaEspecial()}";
+        "Requiere comida especial: {$this->getRequiereComidaEspecial()}\n----------------\n";
     }
 
 

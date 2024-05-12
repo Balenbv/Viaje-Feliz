@@ -1,11 +1,11 @@
 <?php
 
-include 'Pasajero.php';
-include 'PasajeroVIP.php';
-include 'PasajeroEspecial.php';
-include 'ResponsableV.php';
-include 'Viaje.php';
-include 'Persona.php';
+include_once 'Persona.php';
+include_once 'Pasajero.php';
+include_once 'PasajeroVIP.php';
+include_once 'PasajeroEspecial.php';
+include_once 'ResponsableV.php';
+include_once 'Viaje.php';
 
 $objPasajero1 = new Pasajero('John', 'Doe', '12345678', '555-1234', 12, 293847);
 $objPasajero2 = new Pasajero('Jane', 'Smith', '87654321', '555-5678', 34, 2984);
@@ -13,18 +13,17 @@ $objPasajero3 = new Pasajero('Mike', 'Johnson', '98765432', '555-4321', 56, 2813
 $objPasajero4 = new Pasajero('Emily', 'Williams', '23456789', '555-8765', 78, 23973);
 $objPasajero5 = new Pasajero('David', 'Brown', '98765432', '555-9876', 90, 23421);
 $objPasajero6 = new PasajeroVIP('Sarah', 'Davis', '34567890', '555-2345', 73, 92873, 589, 2384);
-$objPasajero7 = new PasajeroVIP('Michael', 'Wilson', '09876543', '555-7890', 45, 2654, 987, 2345);
+$objPasajero7 = new PasajeroVIP('Michael', 'Wilson', '9876543', '555-7890', 45, 2654, 987, 2345);
 $objPasajero8 = new PasajeroVIP('Jessica', 'Taylor', '56789012', '555-3456', 23, 3456, 1234, 3456);
 $objPasajero9 = new PasajeroEspecial('Daniel', 'Anderson', '10987654', '555-9012', 29, 23423, true, true, true);
 $objPasajero10 = new PasajeroEspecial('Sophia', 'Thomas', '45678901', '555-6789', 67, 7324, false, true, false);
 
 $coleccionPasajeros = [$objPasajero1, $objPasajero2, $objPasajero3, $objPasajero4, $objPasajero5, $objPasajero6, $objPasajero7, $objPasajero8, $objPasajero9, $objPasajero10];
 
-
 $objResponsable = new ResponsableV('Juan', 'Pérez', '87654321', 9817364, '123456', '987654');
-$ObjViaje = new Viaje($objResponsable, '787', 'chubut', 150, $coleccionPasajeros);
+$objViaje = new Viaje($objResponsable, '787', 'chubut', 150, $coleccionPasajeros);
 
-echo $objPasajero6->getNombre();
+echo $objViaje->mostrarPasajeros();
 // do{
 //     echo "*****************************\nEliga una opcion:\n";
 //     echo "1) Opciones Pasajero/s.\n2) Modificar al responsable.\n3) Opciones vuelo.\n4) Ver datos vuelo.\n5) Salir.\n";

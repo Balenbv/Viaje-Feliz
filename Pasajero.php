@@ -13,7 +13,7 @@ class Pasajero extends Persona
     }
 
     public function getNombre(){
-        parent::getNombre();
+       return parent::getNombre();
     }
 
     public function getApellido(){
@@ -31,6 +31,11 @@ class Pasajero extends Persona
     public function getNumeroAsiento()
     {
         return $this->numeroAsiento;
+    }
+
+    public function getNumeroTicket()
+    {
+        return $this->numeroTicket;
     }
 
     public function setNombre($newNombre)
@@ -53,11 +58,6 @@ class Pasajero extends Persona
         parent::setNumeroTelefono($newNumeroTelefono);
     }
 
-    public function getNumeroTicket()
-    {
-        return $this->numeroTicket;
-    }
-
     public function setNumeroAsiento($newNumeroAsiento)
     {
         $this->numeroAsiento = $newNumeroAsiento;
@@ -75,6 +75,6 @@ class Pasajero extends Persona
     
     public function __toString()
     {
-        return parent::__toString() . "Numero de asiento: {$this->getNumeroAsiento()}\nNumero de ticket{$this->getNumeroTicket()}";
+        return parent::__toString() . "Numero de asiento: {$this->getNumeroAsiento()}\nNumero de ticket: {$this->getNumeroTicket()}\n";
     }
 }

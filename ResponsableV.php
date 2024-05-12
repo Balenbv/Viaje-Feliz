@@ -12,6 +12,16 @@ class ResponsableV extends Persona
         $this->numeroLicienciaInt = $numeroLicencia;
     }
 
+    public function getNombre()
+    {
+        return parent::getNombre();
+    }
+
+    public function getApellido()
+    {
+        return parent::getApellido();
+    }
+    
     public function getNumeroEmpleado()
     {
         return $this->numeroEmpleadoInt;
@@ -22,15 +32,7 @@ class ResponsableV extends Persona
         return $this->numeroLicienciaInt;
     }
 
-    public function getNombre()
-    {
-        return $this->nombreInt;
-    }
-
-    public function getApellido()
-    {
-        return $this->apellidoInt;
-    }
+ 
 
     public function setNumeroEmpleado($newNumeroEmpleado)
     {
@@ -44,12 +46,12 @@ class ResponsableV extends Persona
 
     public function setNombre($newNombre)
     {
-        $this->nombreInt = $newNombre;
+        parent::setNombre($newNombre);
     }
 
     public function setApellido($newApellido)
     {
-        $this->apellidoInt = $newApellido;
+        parent::setApellido($newApellido);
     }
 
     public function __toString()

@@ -61,7 +61,6 @@ class Persona
 Nombre: {$this->getNombre()}
 Apellido: {$this->getApellido()}
 Numero de Telefono: {$this->getNumeroTelefono()}
-Numero DNI: {$this->getNumeroDocumento()}
-------------------------";
+Numero DNI: {$this->getNumeroDocumento()}\n";
     }
 }
