@@ -1,18 +1,15 @@
 <?php
 
-class ResponsableV
+class ResponsableV extends Persona
 {
     private $numeroEmpleadoInt;
     private $numeroLicienciaInt;
-    private $nombreInt;
-    private $apellidoInt;
-
-    public function __construct($numeroLicienciaExt, $numeroEmpleadoExt, $nombreExt, $apellidoExt)
+    
+    public function __construct($nombre, $apellido, $numeroDocumento, $numeroTelefono, $numeroEmpleado, $numeroLicencia)
     {
-        $this->numeroEmpleadoInt = $numeroEmpleadoExt;
-        $this->numeroLicienciaInt = $numeroLicienciaExt;
-        $this->nombreInt = $nombreExt;
-        $this->apellidoInt = $apellidoExt;
+        parent::__construct($nombre, $apellido, $numeroDocumento, $numeroTelefono);
+        $this->numeroEmpleadoInt = $numeroEmpleado;
+        $this->numeroLicienciaInt = $numeroLicencia;
     }
 
     public function getNumeroEmpleado()

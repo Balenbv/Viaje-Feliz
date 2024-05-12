@@ -1,58 +1,58 @@
 <?php
 
-class Pasajero
+class Persona
 {
-    private $nombreInt;
-    private $apellidoInt;
-    private $numeroDocInt;
-    private $numTelefonoInt;
+    private $nombre;
+    private $apellido;
+    private $numeroDocumento;
+    private $numeroTelefono;
 
-    public function __construct($nombreExt, $apellidoExt, $numeroDocExt, $numTelefonoExt)
+    public function __construct($nombre, $apellido, $numeroDocumento, $numeroTelefono)
     {
-        $this->nombreInt = $nombreExt;
-        $this->apellidoInt = $apellidoExt;
-        $this->numeroDocInt = $numeroDocExt;
-        $this->numTelefonoInt = $numTelefonoExt;
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->numeroDocumento = $numeroDocumento;
+        $this->numeroTelefono = $numeroTelefono;
     }
 
     public function getNombre()
     {
-        return $this->nombreInt;
+        return $this->nombre;
     }
 
     public function getApellido()
     {
-        return $this->apellidoInt;
+        return $this->apellido;
     }
 
     public function getNumeroDocumento()
     {
-        return $this->numeroDocInt;
+        return $this->numeroDocumento;
     }
 
     public function getNumeroTelefono()
     {
-        return $this->numTelefonoInt;
+        return $this->numeroTelefono;
     }
 
     public function setNombre($newNombre)
     {
-        $this->nombreInt = $newNombre;
+        $this->nombre = $newNombre;
     }
 
     public function setApellido($newApellido)
     {
-        $this->apellidoInt = $newApellido;
+        $this->apellido = $newApellido;
     }
 
     public function setNumeroDocumento($newNumeroDocumento)
     {
-        $this->numeroDocInt = $newNumeroDocumento;
+        $this->numeroDocumento = $newNumeroDocumento;
     }
 
     public function setNumeroTelefono($newNumeroTelefono)
     {
-        $this->numTelefonoInt = $newNumeroTelefono;
+        $this->numeroTelefono = $newNumeroTelefono;
     }
 
     public function __toString()

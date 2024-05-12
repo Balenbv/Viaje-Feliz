@@ -78,7 +78,7 @@ class Viaje
         $existePasajero = -1;
         $seEncontro = false;
         while ($seEncontro != true && $i < $this->cantidadActualPasajeros()) {
-            if ($this->getPasajeros()[$i]->getNumeroDocumento() == $dniParaRastrear) {
+            if ($this->getPasajeros()[$i] == $dniParaRastrear) {
                 $seEncontro = true;
                 $existePasajero = $i;
             } else {
@@ -88,10 +88,10 @@ class Viaje
         return $existePasajero;
     }
 
-    public function crearPasajero($nombre, $apellido, $dni, $numeroTelefono)
+    public function crearPasajero($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket)
     {
         if ($this->encontrarPosicionPasajero($dni) == -1) {
-            $objpersonaAux = new Pasajero($nombre, $apellido, $dni, $numeroTelefono);
+            $objpersonaAux = new Pasajero($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket);
             $arrayPasajerosAux = $this->getPasajeros();
             array_push($arrayPasajerosAux, $objpersonaAux);
             $this->setPasasejeros($arrayPasajerosAux);
