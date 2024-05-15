@@ -7,14 +7,16 @@ class Viaje
     private $destinoInt;
     private $cantidadMaximaPasajerosInt;
     private $ColeccionObjspasajerosInt;
+    private $precioPasaje;
 
-    public function __construct($objResponsableVExt, $codigoViajeExt, $destinoExt, $cantidadMaximaPasajerosExt, $pasajerosExt)
+    public function __construct($objResponsableVExt, $codigoViajeExt, $destinoExt, $cantidadMaximaPasajerosExt, $pasajerosExt, $precioPasajeExt)
     {
         $this->objResponsableVInt = $objResponsableVExt;
         $this->codigoViajeInt = $codigoViajeExt;
         $this->destinoInt = $destinoExt;
         $this->cantidadMaximaPasajerosInt = $cantidadMaximaPasajerosExt;
         $this->ColeccionObjspasajerosInt = $pasajerosExt;
+        $this->precioPasaje = $precioPasajeExt;
     }
 
     public function getResponsableV()
@@ -42,6 +44,11 @@ class Viaje
         return $this->ColeccionObjspasajerosInt;
     }
 
+    public function getPrecioPasaje()
+    {
+        return $this->precioPasaje;
+    }
+
     public function setResponsableV($newObjResponsable)
     {
         $this->objResponsableVInt = $newObjResponsable;
@@ -67,10 +74,16 @@ class Viaje
         $this->ColeccionObjspasajerosInt = $newColeccion;
     }
 
+    public function setPrecioPasaje($newPrecioPasaje)
+    {
+        $this->precioPasaje = $newPrecioPasaje;
+    }
+
     public function cantidadActualPasajeros()
     {
         return count($this->getPasajeros());
     }
+
 
     public function encontrarPosicionPasajero($dniParaRastrear)
     {
@@ -87,28 +100,45 @@ class Viaje
         }
         return $existePasajero;
     }
+    
+    public function costoDelViaje(){
+        $costoTotal = 0;
+        foreach ($this->getPasajeros() as $pasajero) {
+            $costoTotal += $this->getPrecioPasaje() * ($pasajero->darPorcentajeIncremento() / 100 + 1);
+        }
+        return $costoTotal;
+    }
 
-    public function crearPasajero($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket, $numViajeFrecuente, $numMillas, $requiereRuedas, $requiereAsistenciaEspecial, $requiereComidaEspecial)
+    public function harPasajesDisponibles()
     {
+        return $this->cantidadActualPasajeros() < $this->getCantidadMaximaPasajeros();
+    }
+
+    public function venderPasaje($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket, $numViajeFrecuente, $numMillas, $requiereRuedas, $requiereAsistenciaEspecial, $requiereComidaEspecial)
+    {
+        $importeFinal = 0;
         if ($this->encontrarPosicionPasajero($dni) == -1) {
             if ($numMillas != null) {
                 $objpersonaAux = new PasajeroVIP($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket, $numViajeFrecuente, $numMillas);
                 $arrayPasajerosAux = $this->getPasajeros();
                 array_push($arrayPasajerosAux, $objpersonaAux);
                 $this->setPasasejeros($arrayPasajerosAux);
+                $importeFinal = $this->getPrecioPasaje() * ($objpersonaAux->darPorcentajeIncremento() / 100 + 1);
             } else if ($requiereRuedas != null) {
                 $objpersonaAux = new PasajeroEspecial($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket, $requiereRuedas, $requiereAsistenciaEspecial, $requiereComidaEspecial);
                 $arrayPasajerosAux = $this->getPasajeros();
                 array_push($arrayPasajerosAux, $objpersonaAux);
                 $this->setPasasejeros($arrayPasajerosAux);
+                $importeFinal = $this->getPrecioPasaje() * ($objpersonaAux->darPorcentajeIncremento() / 100 + 1);
             } else {
                 $objpersonaAux = new Pasajero($nombre, $apellido, $dni, $numeroTelefono, $numAsiento, $numTicket);
                 $arrayPasajerosAux = $this->getPasajeros();
                 array_push($arrayPasajerosAux, $objpersonaAux);
                 $this->setPasasejeros($arrayPasajerosAux);
+                $importeFinal = $this->getPrecioPasaje() * ($objpersonaAux->darPorcentajeIncremento() / 100 + 1);
             }
         }
-        return ($this->encontrarPosicionPasajero($dni) != -1);
+        return $importeFinal;
     }
 
     public function modificarPasajero($numeroDniPasajero, $newNombre, $newApellido, $newNuevoTelefono)
@@ -143,7 +173,7 @@ class Viaje
             } else if ($pasajeroIndividual instanceof PasajeroEspecial) {
                 $texto .= "pasajero " . $i . ":\nTipo: Especial" . $pasajeroIndividual . "\n";
             } else {
-                $texto .= "pasajero " . $i . ":\nTipo: Comun" . $pasajeroIndividual."----------------\n";
+                $texto .= "pasajero " . $i . ":\nTipo: Comun" . $pasajeroIndividual . "----------------\n";
             }
             $i++;
         }
@@ -160,6 +190,8 @@ Datos del viaje:
 codigo del destino: {$this->getCodigoViaje()}
 destino: {$this->getDestino()}
 cantidad Maxima de pasajeros: {$this->getCantidadMaximaPasajeros()}
+precio del pasaje: {$this->getPrecioPasaje()}
+costo total del viaje: {$this->costoDelViaje()}
 ********************************
 {$this->mostrarPasajeros()}";
     }

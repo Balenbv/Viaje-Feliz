@@ -1,6 +1,7 @@
 <?php
 
-class PasajeroEspecial extends Pasajero{
+class PasajeroEspecial extends Pasajero
+{
     private $requiereRuedas;
     private $requiereAsistencia;
     private $requiereComidaEspecial;
@@ -12,7 +13,7 @@ class PasajeroEspecial extends Pasajero{
         $this->requiereAsistencia = $requiereAsistencia;
         $this->requiereComidaEspecial = $requiereComidaEspecial;
     }
-    
+
     public function getRequiereRuedas()
     {
         return $this->requiereRuedas;
@@ -43,10 +44,11 @@ class PasajeroEspecial extends Pasajero{
         $this->requiereComidaEspecial = $newRequiereComidaEspecial;
     }
 
-    public function darPorcentajeIncremento(){
+    public function darPorcentajeIncremento()
+    {
         $importeIncremento = 15;
-        if($this->getRequiereRuedas() && $this->getRequiereAsistencia() && $this->getRequiereComidaEspecial()){
-        $importeIncremento = 30;
+        if ($this->getRequiereRuedas() && $this->getRequiereAsistencia() && $this->getRequiereComidaEspecial()) {
+            $importeIncremento = 30;
         }
         return $importeIncremento;
     }
@@ -56,10 +58,8 @@ class PasajeroEspecial extends Pasajero{
     public function __toString()
     {
         return parent::__toString() .
-        "Requiere ruedas: {$this->getRequiereRuedas()}\n".
-        "Requiere asistencia: {$this->getRequiereAsistencia()}\n".
-        "Requiere comida especial: {$this->getRequiereComidaEspecial()}\n----------------\n";
+            "Requiere ruedas: {$this->getRequiereRuedas()}\n" .
+            "Requiere asistencia: {$this->getRequiereAsistencia()}\n" .
+            "Requiere comida especial: {$this->getRequiereComidaEspecial()}\n----------------\n";
     }
-
-
-} 
+}
