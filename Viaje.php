@@ -153,13 +153,11 @@ class Viaje
 
     public function cambiarResponsable($numeroLicencia, $numEmpleado, $nombre, $apellido)
     {
-        echo $this->getResponsableV();
         if ($this->getResponsableV()->getNumeroLicencia() == $numeroLicencia) {
             $this->getResponsableV()->setNombre($nombre);
             $this->getResponsableV()->setApellido($apellido);
             $this->getResponsableV()->setNumeroEmpleado($numEmpleado);
         }
-        echo $this->getResponsableV();
         return ($this->getResponsableV()->getNumeroLicencia() == $numeroLicencia);
     }
 
