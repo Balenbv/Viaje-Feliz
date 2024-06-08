@@ -6,6 +6,7 @@ include_once 'PasajeroVIP.php';
 include_once 'PasajeroEspecial.php';
 include_once 'ResponsableV.php';
 include_once 'Viaje.php';
+include_once 'bdViajeFeliz.php';
 
 $objPasajero1 = new Pasajero('John', 'Doe', '12345678', '555-1234', 12, 293847);
 $objPasajero2 = new Pasajero('Jane', 'Smith', '87654321', '555-5678', 34, 2984);
